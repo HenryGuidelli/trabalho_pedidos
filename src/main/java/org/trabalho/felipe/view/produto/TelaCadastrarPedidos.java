@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import org.trabalho.felipe.ItemPedido;
 import org.trabalho.felipe.Pedidos;
 import org.trabalho.felipe.Produtos;
+import org.trabalho.felipe.patterns.PedidoBuilder;
 import org.trabalho.felipe.view.MenuPrincipal;
 
 public class TelaCadastrarPedidos extends javax.swing.JFrame {
@@ -206,28 +207,44 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
                 throw new NumberFormatException("Quantidade deve ser maior que zero.");
             }
 
-            ItemPedido itemPedido = ItemPedido.inserirItem(listaItemPedido, (Produtos) cmb_Produtos.getSelectedItem(), quantidade);
+            Produtos produtoSelecionado = (Produtos) cmb_Produtos.getSelectedItem();
 
-            if (itemPedido != null){
-                Object[] itemAdd = new Object[]{
-                    Pedidos.autoInt(listaPedidos),
-                    ItemPedido.getItemQtd(listaItemPedido),
-                    ItemPedido.contarQtdItens(listaItemPedido),
-                    ItemPedido.somarValoresItens(listaItemPedido)
-                };
-                tabela.addRow(itemAdd);
-                
-                listaPedidos.add(Pedidos.inserirPedidos(listaPedidos, listaItemPedido));
-            }
-            else{
-                javax.swing.JOptionPane.showMessageDialog(this, "Este item já foi adicionado ao pedido!", "Aviso", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            // Verifica se o item já existe
+            boolean jaExiste = false;
+            for (ItemPedido ip : listaItemPedido) {
+                if (ip.getItem().getId() == produtoSelecionado.getId()) {
+                    jaExiste = true;
+                    break;
+                }
             }
 
-            System.out.println(listaItemPedido);
-            System.out.println(listaPedidos);
+            if (jaExiste) {
+                JOptionPane.showMessageDialog(this, "Este item já foi adicionado ao pedido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                return; // não segue pra criação de pedido
+            }
+
+            // Se não existe, adiciona e cria pedido normalmente
+            ItemPedido novoItem = new ItemPedido(produtoSelecionado, quantidade);
+            listaItemPedido.add(novoItem);
+
+            Pedidos novoPedido = new PedidoBuilder()
+                    .comId(Pedidos.autoInt(listaPedidos))
+                    .adicionarItem(produtoSelecionado, quantidade)
+                    .construir();
+
+            listaPedidos.add(novoPedido);
+
+            Object[] linha = new Object[]{
+                novoPedido.getId(),
+                novoItem.getItem().getDescricao() + "x" + novoItem.getQtd(),
+                novoPedido.getQtd(),
+                novoPedido.getValorTotal()
+            };
+
+            tabela.addRow(linha);
 
         } catch (NumberFormatException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Quantidade inválida! Digite um número válido maior que zero.", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Quantidade inválida! Digite um número válido maior que zero.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_AdicionarActionPerformed
 

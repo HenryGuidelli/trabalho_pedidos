@@ -3,8 +3,12 @@ package org.trabalho.felipe.view.produto;
 import javax.swing.JOptionPane;
 import org.trabalho.felipe.ItemPedido;
 import org.trabalho.felipe.Pedidos;
+import org.trabalho.felipe.patterns.CalculoNormal;
+import org.trabalho.felipe.patterns.CalculoValorStrategy;
 
 public class TelaAlterarPedido extends javax.swing.JFrame {
+    
+    CalculoValorStrategy strategy = new CalculoNormal();
 
     public void placeholder() {
         txtFild_Quantidade.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -112,16 +116,16 @@ public class TelaAlterarPedido extends javax.swing.JFrame {
                 Pedidos pedido = Pedidos.buscarId(linhaSelec, TelaPedido.listaPedidos);
                 
                 pedido.getLista().get(linhaSelec).setQtd(qtd);
-                pedido.setQtd(ItemPedido.contarQtdItens(TelaPedido.listaItemPedido));
-                pedido.setValorTotal(ItemPedido.somarValoresItens(TelaPedido.listaItemPedido));
+                pedido.setQtd(ItemPedido.contarQtdItens(pedido.getLista())); // Atualizar quantidade total
+                pedido.setValorTotal(strategy.calcular(pedido.getLista()));
                 
                 System.out.println(pedido);
                 
-//                ItemPedido item = pedido.getLista().get(linhaSelec);;
+                ItemPedido item = pedido.getLista().get(linhaSelec);;
 
-                TelaPedido.tabela.setValueAt((Object)ItemPedido.getItemQtd(TelaPedido.listaItemPedido), linhaSelec, 1);
-                TelaPedido.tabela.setValueAt((Object)ItemPedido.contarQtdItens(TelaPedido.listaItemPedido), linhaSelec, 2);
-                TelaPedido.tabela.setValueAt((Object)ItemPedido.somarValoresItens(TelaPedido.listaItemPedido), linhaSelec, 3);
+                TelaPedido.tabela.setValueAt((Object)ItemPedido.getItemQtd(pedido.getLista()), linhaSelec, 1);
+                TelaPedido.tabela.setValueAt((Object)ItemPedido.contarQtdItens(pedido.getLista()), linhaSelec, 2);
+                TelaPedido.tabela.setValueAt((Object)strategy.calcular(pedido.getLista()), linhaSelec, 3);
 
                 JOptionPane.showMessageDialog(this, "Linha Alterada", "ALTERADO", JOptionPane.INFORMATION_MESSAGE);
 

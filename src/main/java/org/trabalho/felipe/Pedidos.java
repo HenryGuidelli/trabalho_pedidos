@@ -2,6 +2,8 @@ package org.trabalho.felipe;
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import org.trabalho.felipe.patterns.CalculoNormal;
+import org.trabalho.felipe.patterns.CalculoValorStrategy;
 
 public class Pedidos {
     
@@ -12,17 +14,17 @@ public class Pedidos {
    int qtdTotal;
    Double ValorTotal;
    
+   CalculoValorStrategy strategy = new CalculoNormal();
+   
     public Pedidos(int id, ArrayList<ItemPedido> lista)
     {
         this.id = id;
         this.listaItens = lista;
         this.qtdTotal = ItemPedido.contarQtdItens(lista);
-        this.ValorTotal = ItemPedido.somarValoresItens(lista);
+        this.ValorTotal = strategy.calcular(lista);
     }
-    
+  
 
-    
-    
     public static int autoInt(ArrayList<Pedidos> listaPedidos) {
         if (listaPedidos.isEmpty()) {
             return 0;
