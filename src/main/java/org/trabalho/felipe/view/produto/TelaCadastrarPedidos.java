@@ -68,10 +68,11 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
         tb_Pedidos = new javax.swing.JTable();
         cmb_Produtos = new javax.swing.JComboBox();
         txtFild_Quantidade = new javax.swing.JTextField();
-        btn_Adicionar = new javax.swing.JButton();
+        btn_AdicionarItem = new javax.swing.JButton();
         btn_Excluir = new javax.swing.JButton();
         btn_Fechar = new javax.swing.JButton();
         btn_Alterar = new javax.swing.JButton();
+        btn_InserirPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("PEDIDOS");
@@ -120,11 +121,11 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
 
         txtFild_Quantidade.setText("QUANTIDADE");
 
-        btn_Adicionar.setText("ADICIONAR");
-        btn_Adicionar.setToolTipText("ADICIONAR");
-        btn_Adicionar.addActionListener(new java.awt.event.ActionListener() {
+        btn_AdicionarItem.setText("ADICIONAR ITEM");
+        btn_AdicionarItem.setToolTipText("ADICIONAR ITEM");
+        btn_AdicionarItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_AdicionarActionPerformed(evt);
+                btn_AdicionarItemActionPerformed(evt);
             }
         });
 
@@ -150,28 +151,38 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
             }
         });
 
+        btn_InserirPedido.setText("ADICIONAR PEDIDO");
+        btn_InserirPedido.setToolTipText("ADICIONAR PEDIDO");
+        btn_InserirPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_InserirPedidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_Alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmb_Produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFild_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_AdicionarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_InserirPedido)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_Alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
                         .addComponent(btn_Excluir)
-                        .addGap(43, 43, 43)
-                        .addComponent(btn_Fechar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(cmb_Produtos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtFild_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btn_Adicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Fechar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,14 +191,14 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmb_Produtos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFild_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Adicionar))
+                    .addComponent(btn_AdicionarItem)
+                    .addComponent(btn_InserirPedido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_Excluir)
-                        .addComponent(btn_Alterar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_Excluir)
+                    .addComponent(btn_Alterar)
                     .addComponent(btn_Fechar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -200,7 +211,7 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_AdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AdicionarActionPerformed
+    private void btn_AdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AdicionarItemActionPerformed
         try {
             int quantidade = Integer.parseInt(txtFild_Quantidade.getText());
             if (quantidade <= 0) {
@@ -208,8 +219,6 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
             }
 
             Produtos produtoSelecionado = (Produtos) cmb_Produtos.getSelectedItem();
-
-            // Verifica se o item já existe
             boolean jaExiste = false;
             for (ItemPedido ip : listaItemPedido) {
                 if (ip.getItem().getId() == produtoSelecionado.getId()) {
@@ -220,25 +229,21 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
 
             if (jaExiste) {
                 JOptionPane.showMessageDialog(this, "Este item já foi adicionado ao pedido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                return; // não segue pra criação de pedido
+                return;
             }
 
-            // Se não existe, adiciona e cria pedido normalmente
             ItemPedido novoItem = new ItemPedido(produtoSelecionado, quantidade);
             listaItemPedido.add(novoItem);
 
-            Pedidos novoPedido = new PedidoBuilder()
-                    .comId(Pedidos.autoInt(listaPedidos))
-                    .adicionarItem(produtoSelecionado, quantidade)
-                    .construir();
+            
 
-            listaPedidos.add(novoPedido);
+            
 
             Object[] linha = new Object[]{
-                novoPedido.getId(),
+                Pedidos.getLastId(listaPedidos),
                 novoItem.getItem().getDescricao() + "x" + novoItem.getQtd(),
-                novoPedido.getQtd(),
-                novoPedido.getValorTotal()
+                novoItem.getQtd(),
+                novoItem.getItem().getPreco()*novoItem.getQtd()
             };
 
             tabela.addRow(linha);
@@ -246,7 +251,7 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Quantidade inválida! Digite um número válido maior que zero.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btn_AdicionarActionPerformed
+    }//GEN-LAST:event_btn_AdicionarItemActionPerformed
 
     private void btn_FecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_FecharActionPerformed
         MenuPrincipal.setVisible(true);
@@ -275,13 +280,41 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
         if (linhaSelec < 0) {
             System.out.println("Nenhuma linha selecionada!");
         } else {
-            listaItemPedido.remove(linhaSelec);
-            listaPedidos.remove(linhaSelec);
-            tabela.removeRow(linhaSelec);
+            if (listaPedidos == null || listaPedidos.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, insira o Pedido antes", "Erro", JOptionPane.ERROR_MESSAGE);
+
+            }
+            else{
+                int id = 0;
+                for(ItemPedido item : listaItemPedido){
+                    if(item.getItem().getId() == Integer.parseInt(tabela.getValueAt(linhaSelec, 0).toString())){
+                        break;
+                    }
+                    id++;
+                }
+                
+                listaPedidos.remove(id);
+                tabela.setNumRows(0);
+                Pedidos.ListaPedidos(listaPedidos, tabela);
+            }
+            
         }
         System.out.println(listaItemPedido);
         System.out.println(listaPedidos);
     }//GEN-LAST:event_btn_ExcluirActionPerformed
+
+    private void btn_InserirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InserirPedidoActionPerformed
+        Pedidos novoPedido = new PedidoBuilder()
+                    .comId(Pedidos.autoInt(listaPedidos))
+                    .adicionarItem(listaItemPedido)
+                    .construir();
+        
+        listaPedidos.add(novoPedido);
+        
+        listaItemPedido.clear();
+        
+        System.out.println(listaPedidos);
+    }//GEN-LAST:event_btn_InserirPedidoActionPerformed
 
     public static void main(String args[]) {
 
@@ -316,10 +349,11 @@ public class TelaCadastrarPedidos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Adicionar;
+    private javax.swing.JButton btn_AdicionarItem;
     private javax.swing.JButton btn_Alterar;
     private javax.swing.JButton btn_Excluir;
     private javax.swing.JButton btn_Fechar;
+    private javax.swing.JButton btn_InserirPedido;
     public javax.swing.JComboBox cmb_Produtos;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tb_Pedidos;

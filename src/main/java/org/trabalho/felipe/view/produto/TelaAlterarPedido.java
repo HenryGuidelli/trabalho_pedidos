@@ -114,21 +114,27 @@ public class TelaAlterarPedido extends javax.swing.JFrame {
                 qtd = Integer.parseInt(txtFild_Quantidade.getText());
                 
                 Pedidos pedido = Pedidos.buscarId(linhaSelec, TelaPedido.listaPedidos);
-                
-                pedido.getLista().get(linhaSelec).setQtd(qtd);
-                pedido.setQtd(ItemPedido.contarQtdItens(pedido.getLista())); // Atualizar quantidade total
-                pedido.setValorTotal(strategy.calcular(pedido.getLista()));
-                
-                System.out.println(pedido);
-                
-                ItemPedido item = pedido.getLista().get(linhaSelec);;
+                if(pedido == null){
+                    JOptionPane.showMessageDialog(this, "Por favor, insira o Pedido antes", "Erro", JOptionPane.ERROR_MESSAGE);
+   
+                }
+                else{
+                    pedido.getLista().get(linhaSelec).setQtd(qtd);
+                    pedido.setQtd(ItemPedido.contarQtdItens(pedido.getLista()));
+                    pedido.setValorTotal(strategy.calcular(pedido.getLista()));
 
-                TelaPedido.tabela.setValueAt((Object)ItemPedido.getItemQtd(pedido.getLista()), linhaSelec, 1);
-                TelaPedido.tabela.setValueAt((Object)ItemPedido.contarQtdItens(pedido.getLista()), linhaSelec, 2);
-                TelaPedido.tabela.setValueAt((Object)strategy.calcular(pedido.getLista()), linhaSelec, 3);
+                    System.out.println(pedido);
 
-                JOptionPane.showMessageDialog(this, "Linha Alterada", "ALTERADO", JOptionPane.INFORMATION_MESSAGE);
+                    ItemPedido item = pedido.getLista().get(linhaSelec);
 
+                    TelaPedido.tabela.setValueAt((Object) ItemPedido.getItemQtd(pedido.getLista()), linhaSelec, 1);
+                    TelaPedido.tabela.setValueAt((Object) ItemPedido.contarQtdItens(pedido.getLista()), linhaSelec, 2);
+                    TelaPedido.tabela.setValueAt((Object) strategy.calcular(pedido.getLista()), linhaSelec, 3);
+
+                    JOptionPane.showMessageDialog(this, "Linha Alterada", "ALTERADO", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira quantidade maior que 0.", "Erro", JOptionPane.ERROR_MESSAGE);
 

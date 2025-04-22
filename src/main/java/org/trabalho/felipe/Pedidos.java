@@ -49,9 +49,10 @@ public class Pedidos {
         tabela.setNumRows(0);
 
         for (Pedidos pedido : lista) {
-
-            Object[] pediAdd = new Object[]{pedido.getId(), pedido.listaItens, pedido.qtdTotal, pedido.ValorTotal};
-            tabela.addRow(pediAdd);
+           
+                Object[] pediAdd = new Object[]{pedido.getId(), ItemPedido.getItemQtd(pedido.listaItens), pedido.qtdTotal, pedido.ValorTotal};
+                tabela.addRow(pediAdd);
+            
         }
     }
     
@@ -74,7 +75,17 @@ public class Pedidos {
 
     @Override
     public String toString() {
-        return "id=" + id + ", itens=" + listaItens + ", qtdTotal=" + qtdTotal + ", ValorTotal=" + ValorTotal + "\n";
+        return "id=" + id + ", itens=" + ItemPedido.getItemQtd(listaItens) + ", qtdTotal=" + qtdTotal + ", ValorTotal=" + ValorTotal + "\n";
+    }
+    
+    public static int getLastId(ArrayList<Pedidos> listaPedidos){
+        if(listaPedidos == null || listaPedidos.isEmpty()){
+            return 0;            
+        }
+        else{
+            return listaPedidos.get(listaPedidos.size() - 1).getId()+1;  
+        }
+        
     }
    
     public int getId() {

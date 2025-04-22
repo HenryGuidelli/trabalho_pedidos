@@ -19,6 +19,16 @@ public class PedidoBuilder {
         this.itens.add(new ItemPedido(produto, qtd));
         return this;
     }
+    
+    public PedidoBuilder adicionarItem(ArrayList<ItemPedido> itens) {
+        
+        for(ItemPedido item : itens){
+            this.itens.add(item);
+        }
+        
+        
+        return this;
+    }
 
     public Pedidos construir() {
         return new Pedidos(id, itens);
